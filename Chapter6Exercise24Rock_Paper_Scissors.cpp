@@ -24,7 +24,7 @@ void Rock_Paper_Scissor(int Number);
 int main()
 {
 
-    bool User_Repeat;
+    string Do_Again;
 
     do {
 
@@ -32,15 +32,13 @@ int main()
 
         Rock_Paper_Scissor(Number);
 
-        User_Repeat = Get_Repeat_Info();
+        cout << "Would you like to play again? Yes/No: ";
 
-
-    }
-
-    while (User_Repeat); {
-        cout << "Thank you for using the program";
-        return 0;
-    }
+        cin >> Do_Again;
+    } while (Do_Again == "Yes" || Do_Again == "yes");
+    
+    cout << "Thank you for playing!" << endl;
+    return 0;
 
 }
 
@@ -55,13 +53,6 @@ int GetRandomNumber() {
     return Number;
 }
 
-//Allows user to choose whether they want to repeat program or end it
-bool Get_Repeat_Info() {
-    char choice;
-    cout << "Play another game? Y/N: ";
-    cin >> choice;
-    return (choice == 'Y' || choice == 'y');
-}
 
 //Uses do-while loop to run answer validation. Also assigns a string to numeric value of user's and computer choice
 //Displays whether the user won or lost and displays both users and computers choices

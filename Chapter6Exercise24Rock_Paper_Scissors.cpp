@@ -140,7 +140,7 @@ bool Rock_Paper_Scissor(int Computer_Choice) {
 
     
     do {
-
+        cout << "---------------------------------------------\n";
         cout << "Choose Rock (1), Paper (2), or Scissors(3): ";
 
         cin >> User_Choice;
@@ -158,8 +158,10 @@ bool Rock_Paper_Scissor(int Computer_Choice) {
         Player_Choice = Choice[User_Choice - 1];
         Computer_Choice_String = Choice[Computer_Choice - 1];
 
+        cout << "----------------------------\n";
         cout << "You chose: " << Player_Choice << endl;
         cout << "Computer chose: " << Computer_Choice_String << endl;
+        cout << "----------------------------\n";
 
         //Answer Validation
         if (User_Choice == Computer_Choice) {
@@ -201,7 +203,7 @@ void Display_Sessions() {
 
 //Deletes all previous sessions
 void Delete_Sessions() {
-    ofstream outFile("sessions.txt", ios::trunc);
+    ofstream outFile("RockPaperScissors.txt", ios::trunc);
     if (outFile.is_open()) {
         outFile.close();
         cout << "All sessions have been deleted.\n";

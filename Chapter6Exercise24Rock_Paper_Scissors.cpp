@@ -17,19 +17,27 @@ using namespace std;
 
 //Function Prototype
 int GetRandomNumber();
-int Rock_Paper_Scissor(int Number);
+bool Rock_Paper_Scissor(int Number);
 
 int main()
 {
 
     string Do_Again;
 
+    int wins = 0;
+
     do {
 
         int Number = GetRandomNumber();
 
-        Rock_Paper_Scissor(Number);
 
+        bool Did_Player_Win = Rock_Paper_Scissor(Number);
+
+        if (Did_Player_Win) {
+            wins++;
+        }
+
+        cout << "You have " << wins << " wins!\n";
         cout << "Would you like to play again? Yes/No: ";
 
         cin >> Do_Again;
@@ -54,7 +62,7 @@ int GetRandomNumber() {
 
 //Uses do-while loop to run answer validation. Also assigns a string to numeric value of user's and computer choice
 //Displays whether the user won or lost and displays both users and computers choices
-int Rock_Paper_Scissor(int Computer_Choice) {
+bool Rock_Paper_Scissor(int Computer_Choice) {
     int User_Choice;
 
     int Wins = 0;
@@ -89,17 +97,19 @@ int Rock_Paper_Scissor(int Computer_Choice) {
         //Answer Validation
         if (User_Choice == Computer_Choice) {
             cout << "Draw!\n";
-        
+            return false;
         }
         else if ((User_Choice == 1 && Computer_Choice == 3) || (User_Choice == 2 && Computer_Choice == 1) || (User_Choice == 3 && Computer_Choice ==2)) {
             cout << "You won! " << Player_Choice << " beats " << Computer_Choice_String << "!\n";
-            Wins++;
+            
+            return true;
         }
         else {
             cout << "You lost! " << Computer_Choice_String << " beats " << Player_Choice << "!\n";
+            return false;
         }
         
-        cout << "You have " << Wins << " wins\n";
+  
 
-        return Wins;
+        
 }

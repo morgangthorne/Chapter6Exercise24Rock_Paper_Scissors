@@ -79,6 +79,8 @@ void Rock_Paper_Scissor(int Computer_Choice) {
 
         cin >> User_Choice;
 
+        cout << "--------------------------------------------\n";
+
         if (User_Choice < 1 || User_Choice > 3) {
             cout << "Enter the numbers 1 - 3: ";
             
@@ -92,6 +94,7 @@ void Rock_Paper_Scissor(int Computer_Choice) {
 
         cout << "You chose: " << Player_Choice << endl;
         cout << "Computer chose: " << Computer_Choice_String << endl;
+        cout << "--------------------------------------------\n";
 
         //Answer Validation
         if (User_Choice == Computer_Choice) {

@@ -12,38 +12,86 @@ Requirements:
 
 #include <iostream>
 #include <random>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
 //Function Prototype
 int GetRandomNumber();
+void Show_Menu();
+void Display_Sessions();
+void Delete_Sessions();
 bool Rock_Paper_Scissor(int Number);
 
 int main()
 {
-
     string Do_Again;
-
+    int Menu_Choice;
     int wins = 0;
+    bool running = true;
 
-    do {
+    while (running) {
+        Show_Menu();
+        cin >> Menu_Choice;
+        cin.ignore();
 
-        int Number = GetRandomNumber();
-
-
-        bool Did_Player_Win = Rock_Paper_Scissor(Number);
-
-        if (Did_Player_Win) {
-            wins++;
+        switch (Menu_Choice) {
+        case 1: {
+            Display_Sessions();
+            break;
         }
 
-        cout << "You have " << wins << " wins!\n";
-        cout << "Would you like to play again? Yes/No: ";
+        case 2: {
+            string Player_Name;
+            cout << "Enter your name: ";
 
-        cin >> Do_Again;
-    } while (Do_Again == "Yes" || Do_Again == "yes");
-    
-    cout << "Thank you for playing!" << endl;
+            getline(cin, Player_Name);
+
+            do {
+                int Number = GetRandomNumber();
+                bool Did_Player_Win = Rock_Paper_Scissor(Number);
+                if (Did_Player_Win) {
+                    wins++;
+                }
+
+                cout << "You have " << wins << " win(s)!\n";
+                cout << "Would you like to play again? Yes/No: ";
+                cin >> Do_Again;
+            } while (Do_Again == "Yes" || Do_Again == "yes");
+
+            ofstream outFile("RockPaperScissors.txt", ios::app);
+            if (outFile.is_open()) {
+                outFile << Player_Name << " won " << wins << " time(s)!\n";
+                outFile.close();
+                cout << "Session saved!\n";
+            }
+            else {
+                cout << "Error: Could not save session.\n";
+            }
+
+            wins = 0;  // Reset wins for the next player/session
+            break;
+        }
+        case 3: {
+            Delete_Sessions();
+            break;
+        }
+
+        case 4: {
+            running = false;
+            cout << "Thank you for using the program." << endl;
+            break;
+        }
+
+        default: {
+            cout << "Invalid choice. Please try again." << endl;
+            break;
+        }
+        }
+    }
+
     return 0;
 
 }
@@ -58,6 +106,25 @@ int GetRandomNumber() {
 
     return Number;
 }
+
+//Simply displays menu
+void Show_Menu() {
+    cout << "\n-------- MAIN MENU --------" << endl;
+    cout << "1. Display Existing Sessions" << endl;
+    cout << "2. Play a New Session" << endl;
+    cout << "3. Delete Previous Sessions" << endl;
+    cout << "4. Exit the Program" << endl;
+    cout << "---------------------------" << endl;
+    cout << "Enter your choice: ";
+}
+
+
+
+
+
+
+
+
 
 
 //Uses do-while loop to run answer validation. Also assigns a string to numeric value of user's and computer choice
@@ -112,4 +179,34 @@ bool Rock_Paper_Scissor(int Computer_Choice) {
   
 
         
+}
+
+//Displays all previous sessions, if no sessions found will display no sessions found
+void Display_Sessions() {
+    ifstream inFile("RockPaperScissors.txt");
+
+    if (!inFile) {
+        cout << "No sessions found.\n";
+        return;
+    }
+
+    string line;
+    cout << "\n--- Previous Sessions ---" << endl;
+    while (getline(inFile, line)) {
+        cout << line << endl;
+    }
+
+    inFile.close();
+}
+
+//Deletes all previous sessions
+void Delete_Sessions() {
+    ofstream outFile("sessions.txt", ios::trunc);
+    if (outFile.is_open()) {
+        outFile.close();
+        cout << "All sessions have been deleted.\n";
+    }
+    else {
+        cout << "Error: Could not delete sessions.\n";
+    }
 }

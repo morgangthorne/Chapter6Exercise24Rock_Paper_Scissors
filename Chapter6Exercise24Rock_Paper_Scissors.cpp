@@ -73,6 +73,7 @@ bool Rock_Paper_Scissor(int Computer_Choice) {
 
     
     do {
+        cout << "---------------------------------------------\n";
 
         cout << "Choose Rock (1), Paper (2), or Scissors(3): ";
 
@@ -91,8 +92,10 @@ bool Rock_Paper_Scissor(int Computer_Choice) {
         Player_Choice = Choice[User_Choice - 1];
         Computer_Choice_String = Choice[Computer_Choice - 1];
 
+        cout << "----------------------------\n";
         cout << "You chose: " << Player_Choice << endl;
         cout << "Computer chose: " << Computer_Choice_String << endl;
+        cout << "----------------------------\n";
 
         //Answer Validation
         if (User_Choice == Computer_Choice) {
